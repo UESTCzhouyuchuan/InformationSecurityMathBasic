@@ -31,20 +31,20 @@ def transToWord(a):
 def encrypt(m,a,b,n):
     for i in range(len(m)):
         m[i]=(m[i]*a+b)%n
-    print(transToWord(m))
     return m
 """解密算法"""
 def outEncrypt(m,a,b,n):
     t=OGLD_pro(a,n)
     k=t['x']
-    print("k:",k)
-    result=m[:]
     for i in range(len(m)):
-        result[i]=(k*(m[i]-b))%n
-    print(transToWord(result))
-    return result
-a=transToNum("security")
-print(a)
-b=encrypt(a,11,23,26)
-print(b)
-outEncrypt(b,11,23,26)
+        m[i]=(k*(m[i]-b))%n
+    return m
+#加密过程，输入明文输出密文
+def encryptProcess(clearText,a,b,n):
+    return(transToWord(encrypt(transToNum(clearText),a,b,n)))
+#解密过程，输入密文，输出明文
+def outEncryptProcess(secretText,a,b,n):
+    return(transToWord(outEncrypt(transToNum(secretText),a,b,n)))
+
+print(encryptProcess("security",11,23,26))
+print(outEncryptProcess("nptjchyb",11,23,26))
